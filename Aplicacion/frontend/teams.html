@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- style -->
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="css/Teams.css">
+  <link rel="stylesheet" href="css/pagina.css">
+  <!-- favicon -->
+  <link rel="icon" href="img/LogoPF.jpg">
+  <title>Followed Teams</title>
+</head>
+<body>
+    <!-- HEADER WRAP -->
+    <div class="header">
+        <!-- HEADER -->
+        <form method="GET" action="/Home" >
+          <input type="submit"  name="Inicio" id="Inicio"  value="Inicio" class="logout"/>
+        </form>
+        <form method="GET" action="/teams" >
+          <input type="submit"  name="Equipos" id="Equipos"  value="Equipos" class="logout"/>
+        </form>
+        <form method="POST" action="/logOut" >
+          <input type="submit"  name="logout" id="logout"  value="Log out" class="logout"/>
+        </form>
+          <!-- /WIDGET SELECTABLES -->
+        </div>
+      <!-- /HEADER WRAP -->
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap forum-banner">
+    <!-- BANNER -->
+    <div class="banner grid-limit">
+      <h2 class="banner-title">Teams</h2>
+    </div>
+    <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+  
+  <!-- LAYOUT CONTENT 1 -->
+  <div class="layout-content-1 layout-item-3-1 grid-limit no-padding-bottom">
+    <!-- LAYOUT BODY -->
+    <div class="layout-body layout-item gutter-big">
+      <!-- WIDGET ITEM -->
+      <div class="widget-item">
+        <!-- SECTION TITLE WRAP -->
+        <div class="section-title-wrap violet small-space">
+          <h2 class="section-title medium">All Teams</h2>
+          <div class="section-title-separator"></div>
+        </div>
+        <!-- /SECTION TITLE WRAP -->
+
+        <!-- TABLE -->
+        <div class="table standings full">
+          <!-- TABLE ROW HEADER -->
+          <div class="table-row-header">
+            <!-- TABLE ROW HEADER ITEM -->
+            <div class="table-row-header-item position">
+              <p class="table-row-header-title">Team</p>
+            </div>
+            <!-- /TABLE ROW HEADER ITEM -->
+
+            <!-- TABLE ROW HEADER ITEM -->
+            <div class="table-row-header-item padded">
+              <p class="table-row-header-title">Seguir</p>
+            </div>
+            <!-- /TABLE ROW HEADER ITEM -->
+
+            <!-- TABLE ROW HEADER ITEM -->
+            <div class="table-row-header-item padded">
+              <p class="table-row-header-title">Dejar de seguir</p>
+            </div>
+            <!-- /TABLE ROW HEADER ITEM -->
+
+            <!-- TABLE ROW HEADER ITEM -->
+            <div class="table-row-header-item padded">
+              <p class="table-row-header-title">Ver Partidos</p>
+            </div>
+            <!-- /TABLE ROW HEADER ITEM -->
+          </div>
+          <!-- /TABLE ROW HEADER -->
+
+          <!-- TABLE ROWS -->
+          <div class="table-rows" id="agregarTabla">
+        
+          </div>
+          <!-- /TABLE ROWS -->
+        </div>
+        <!-- /TABLE -->
+      </div>
+
+      <script>
+        
+        function FollowTeam (teamName){
+        const data = { team: teamName };
+           fetch('http://localhost:4000/addToList', {
+              method: 'POST', // or '
+              redirect: 'follow',
+              headers: {
+                        'Content-Type': 'application/json',
+                    },
+              body: JSON.stringify(data),
+            }).then(response => window.location.href = response.url)     
+        }
+        function unfollowTeam (teamName){
+        const data = { team: teamName };
+           fetch('http://localhost:4000/unfollowTeam', {
+              method: 'POST', // or '
+              redirect: 'follow',
+              headers: {
+                        'Content-Type': 'application/json',
+                    },
+              body: JSON.stringify(data),
+            }).then(response => window.location.href = response.url)     
+        }
+        function homeScreen (teamName){
+        const data = { team: teamName };
+           fetch('http://localhost:4000/filteredData', {
+              method: 'POST', // or '
+              redirect: 'follow',
+              headers: {
+                        'Content-Type': 'application/json',
+                    },
+              body: JSON.stringify(data),
+            }).then(response => window.location.href = response.url)     
+        }
+        function followedAlready()
+        {
+          alert('You already follow that team')
+        }
+        function notFollowing()
+        {
+          alert('You are not following that team')
+        }
+        window.onload = async function() {
+          const res = await fetch(`http://localhost:4000/teamsBD`)
+          const data = await res.json();
+          const teams = await fetch(`http://localhost:4000/followedByuser`)
+          const followTeamsUser = await teams.json();
+          var i;
+          for(i=0;i<data.length;i++) {
+          
+          const tableRows =document.getElementById("agregarTabla");
+          const tableRow =document.createElement('div')
+          const item1 =document.createElement('div')
+          const teamInfoWrap =document.createElement('div')
+          const teamInfo =document.createElement('div')
+          const button1 =document.createElement('div')
+          const button2 =document.createElement('div')
+          const button3 =document.createElement('div')
+          tableRow.setAttribute('class','table-row');
+          item1.setAttribute('class',"table-row-item position");
+          teamInfoWrap.setAttribute('class',"team-info-wrap");
+          teamInfo.setAttribute('class',"team-info");
+          button1.setAttribute('class',"table-row-item");
+          button2.setAttribute('class',"table-row-item");
+          button3.setAttribute('class',"table-row-item");
+          const buttonForm1 = document.createElement('button')
+          buttonForm1.setAttribute('class',"botones");
+          buttonForm1.innerHTML="Follow"
+          const buttonForm2 = document.createElement('button')
+          buttonForm2.setAttribute('class',"botones");
+          buttonForm2.innerHTML="Unfollow"
+          const buttonForm3 = document.createElement('button')
+          buttonForm3.setAttribute('class',"botones");
+          var found
+          if(followTeamsUser!=null)
+          {
+             found = followTeamsUser.followedTeams.find(team => team ===data[i].siglasEquipo);
+          }
+    
+          if(found)
+          {
+            buttonForm1.setAttribute('onclick','followedAlready()')
+            buttonForm2.setAttribute('onclick',`unfollowTeam("${data[i].siglasEquipo}")`)
+            buttonForm3.innerHTML="View Match History"
+            buttonForm3.setAttribute('onclick',`homeScreen("${data[i].siglasEquipo}")`);
+          }
+          else
+          {
+            buttonForm1.setAttribute('onclick',`FollowTeam("${data[i].siglasEquipo}")`)
+            buttonForm2.setAttribute('onclick','notFollowing()')
+            buttonForm3.innerHTML="Follow Team First"
+            buttonForm3.setAttribute('onclick','notFollowing()')
+          }
+          const teamLogo = document.createElement('img');
+          teamLogo.setAttribute('class',"team-logo small");
+          const tableText = document.createElement('p')
+          const teamname = document.createElement('p')
+          tableText.setAttribute('class',"table-text");
+          teamname.setAttribute('class',"team-name");
+          tableText.innerHTML=i+1
+          teamname.innerHTML=data[i].nombreEquipo
+          teamLogo.setAttribute('src',`img/teams/logos/${data[i].siglasEquipo}.png`)
+          teamInfo.appendChild(teamname)
+          teamInfoWrap.appendChild(teamLogo)
+          teamInfoWrap.appendChild(teamInfo)
+          item1.appendChild(tableText)
+          button1.appendChild(buttonForm1)
+          button2.appendChild(buttonForm2)
+          button3.appendChild(buttonForm3)
+          item1.appendChild(teamInfoWrap)
+          tableRow.appendChild(item1)
+          tableRow.appendChild(button1)
+          tableRow.appendChild(button2)
+          tableRow.appendChild(button3)
+          tableRows.appendChild(tableRow)
+          }
+        }
+
+      </script>
+      <!-- /WIDGET ITEM -->
+      </body>
+</html>
+
+  

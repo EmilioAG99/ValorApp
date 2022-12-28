@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- style -->
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="css/pagina.css">
+  <!-- favicon -->
+  <link rel="icon" href="img/LogoPF.jpg">
+  <title>eSports Calendar</title>
+</head>
+<body>
+  <!-- HEADER WRAP -->
+  <div class="header">
+    <!-- HEADER -->
+          <form method="GET" action="/Home" >
+            <input type="submit"  name="Inicio" id="Inicio"  value="Inicio" class="logout"/>
+          </form>
+          <form method="GET" action="/teams" >
+            <input type="submit"  name="Equipos" id="Equipos"  value="Equipos" class="logout"/>
+          </form>
+          <form method="POST" action="/logOut" >
+            <input type="submit"  name="logout" id="logout"  value="Log out" class="logout"/>
+          </form>
+         
+      <!-- /WIDGET SELECTABLES -->
+    </div>
+  <!-- /HEADER WRAP -->
+
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap e-sport">
+    <!-- BANNER -->
+    <div class="banner grid-limit">
+      <h2 class="banner-title">Valorant Matches</h2>
+    </div>
+    <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+
+  <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full grid-limit layout-item gutter-big">
+    <!-- TAB WRAP -->
+    <div class="tab-wrap" >
+
+      <!-- TAB HEADER -->
+      <div class="tab-header items-4" style="margin-bottom: 10px;">
+        <!-- TAB HEADER ITEM -->
+        <div class="tab-header-item selected">
+          <!-- TAB HEADER ITEM TEXT -->
+          <p class="tab-header-item-text">All Competitions</p>
+          <!-- /TAB HEADER ITEM TEXT -->
+        </div>
+        <!-- /TAB HEADER ITEM -->
+    </div >
+  
+    <!-- /TAB WRAP -->
+    <div id="separacion" style="margin-top:20px">
+
+    </div>
+    <!-- WIDGET ITEM -->
+    <div class="widget-item">
+      <!-- SECTION TITLE WRAP -->
+      <div class="section-title-wrap violet">
+        <h2 class="section-title medium">ONGOING GAMES</h2>
+        <div class="section-title-separator"></div>
+      </div>
+      <!-- /SECTION TITLE WRAP -->
+      <div id = "partido">
+
+      </div>
+    </div>
+    <div style="margin-top:20px">
+
+    </div>
+    <div class="widget-item">
+      <!-- SECTION TITLE WRAP -->
+      <div class="section-title-wrap violet">
+        <h2 class="section-title medium">Upcoming games</h2>
+        <div class="section-title-separator"></div>
+    </div>
+    <div id="upcoming">
+
+    </div>
+    <div style="margin-top:20px">
+
+    </div>
+    <div class="widget-item">
+      <!-- SECTION TITLE WRAP -->
+      <div class="section-title-wrap violet">
+        <h2 class="section-title medium">Past games</h2>
+        <div class="section-title-separator"></div>
+    </div>
+    <div id="pasados">
+
+    </div>
+    <script>
+      var d = new Date();
+      var day=d.getDate();
+      var month=d.getMonth()+1;
+      month=month.toString();
+      var year= d.getFullYear().toString();
+      if(month<10)
+      {
+        month=`0${month}`;
+        month=Number(month);
+      }
+      
+      function createMatch(datos){
+        const setdata = document.getElementById("partido");
+        const setdata0 = document.getElementById("upcoming");
+        const setdata00 = document.getElementById("pasados");
+        const setdata1 = document.createElement('div')
+        const setdata2 = document.createElement('div')
+        const setdata3 = document.createElement('div')
+        const setdata4 = document.createElement('div')
+        const setdata5 = document.createElement('div')
+        const setdata6 = document.createElement('div')
+        const setdata7 = document.createElement('div')
+        const setdata8 = document.createElement('div')
+        const setdata9 = document.createElement('div')
+        const setdata10 = document.createElement('div')
+        const setdata11 = document.createElement('div')
+        const setdata12 = document.createElement('div')
+
+        const a1 = document.createElement('p')
+        const a2 = document.createElement('p')
+
+        const s1 = document.createElement('p')
+        const s2 = document.createElement('p')
+
+        const b1 = document.createElement('img')
+        const b2 = document.createElement('img')
+
+        const c = document.createElement('button')
+        const d = document.createElement('a')
+
+        var textoButton = document.createTextNode("Full Match Stats");
+        c.appendChild(textoButton)
+       // c.innerHTML = "Full Match Stats"
+        //onclick mandar id base con fetch en funcion por seprada
+        d.innerHTML = "Fecha: "+datos.Fecha.substring(0,10)
+        
+        setdata1.setAttribute('class', 'widget-match-box bordered')
+        setdata2.setAttribute('class', 'widget-match-box-items')
+        setdata3.setAttribute('class', 'widget-team-vs small')
+        setdata4.setAttribute('class', 'widget-team-vs-item')
+        setdata5.setAttribute('class', 'team-info-wrap')
+        setdata6.setAttribute('class', 'team-info')
+        setdata7.setAttribute('class', 'widget-team-vs-item')
+        setdata8.setAttribute('class', 'team-info-wrap')
+        setdata9.setAttribute('class', 'team-info')
+        setdata10.setAttribute('class', 'widget-match-box-item-wrap')
+        setdata11.setAttribute('class', 'widget-match-box-item')
+        setdata12.setAttribute('class', 'widget-match-box-item')
+        a1.setAttribute('class', 'team-name')
+        a2.setAttribute('class', 'team-name')
+        s1.setAttribute('class', 'team-score')
+        s2.setAttribute('class', 'team-score')
+        b1.setAttribute('class', 'team-logo small')
+        b1.setAttribute('src', `img/teams/logos/${datos.Equipo1}.png`)
+        b2.setAttribute('class', 'team-logo small')
+        b2.setAttribute('src', `img/teams/logos/${datos.Equipo2}.png`)
+        c.setAttribute('class', 'widget-match-box-link')
+        c.style.cssText = "margin-left: 230px; cursor: pointer;background-color: white";
+        c.setAttribute('onclick', `funcionPrueba(${datos.idpartidos})`)
+        d.setAttribute('class', 'widget-match-box-link')
+        let queryYear =datos.Fecha.substring(0,4);
+        let queryMonth =Number(datos.Fecha.substring(5,7));
+        let queryDay =Number(datos.Fecha.substring(8,10));
+        if(queryMonth === month && queryDay === day && datos.FInalizado===0)
+        {
+          setdata.appendChild(setdata1)
+        }
+        else if(queryMonth < month ||(queryMonth === month&& queryDay <day)||datos.FInalizado===1)
+        {
+          setdata00.appendChild(setdata1)
+        }
+        else
+        {
+          setdata0.appendChild(setdata1)
+        }
+        
+        setdata1.appendChild(setdata2)
+        setdata2.appendChild(setdata3)
+
+        a1.innerHTML = datos.Equipo1
+        s1.innerHTML = datos.puntosEquipo1
+        setdata4.appendChild(a1)
+        setdata5.appendChild(b1)
+        setdata6.appendChild(a1)
+        setdata3.appendChild(setdata4)
+        setdata4.appendChild(setdata5)
+        setdata4.appendChild(s1)
+        setdata5.appendChild(setdata6)
+        
+        a2.innerHTML = datos.Equipo2
+        s2.innerHTML = datos.puntosEquipo2
+        setdata7.appendChild(a2)
+        setdata8.appendChild(b2)
+        setdata9.appendChild(a2)
+        setdata3.appendChild(setdata7)
+        setdata7.appendChild(setdata8)
+        setdata7.appendChild(s2)
+        setdata8.appendChild(setdata9)
+
+        setdata2.appendChild(setdata10)
+        setdata10.appendChild(setdata11) 
+        setdata11.appendChild(c)
+        setdata10.appendChild(setdata12)
+        setdata12.appendChild(d)
+      }
+       function funcionPrueba (equipo){
+        const data = { username: equipo };
+           fetch('http://localhost:4000/MatchStats', {
+              method: 'POST', // or '
+              redirect: 'follow',
+              headers: {
+                        'Content-Type': 'application/json',
+                    },
+              body: JSON.stringify(data),
+            }).then(response => window.location.href = response.url)
+              
+        }
+      window.onload = async function() {
+        const res = await fetch(`http://localhost:4000/Hometeam`)
+        //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch 
+        const data = await res.json();
+        data.forEach(element => createMatch(element));
+      };
+    </script>
+</body>
+
+</html>

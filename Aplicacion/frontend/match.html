@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- style -->
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="css/pagina.css">
+  <!-- favicon -->
+  <link rel="icon" href="img/LogoPF.jpg">
+  <title>Match Overview </title>
+</head>
+<body>
+   <!-- HEADER WRAP -->
+   <div class="header">
+    <!-- HEADER -->
+          <form method="GET" action="/Home" >
+            <input type="submit"  name="Inicio" id="Inicio"  value="Inicio" class="logout"/>
+          </form>
+          <form method="GET" action="/teams" >
+            <input type="submit"  name="Equipos" id="Equipos"  value="Equipos" class="logout"/>
+          </form>
+          <form method="POST" action="/logOut" >
+            <input type="submit"  name="logout" id="logout"  value="Log out" class="logout"/>
+          </form>
+         
+      <!-- /WIDGET SELECTABLES -->
+    </div>
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap e-sport">
+    <!-- BANNER -->
+    <div class="banner grid-limit">
+      <h2 class="banner-title">Match Overview</h2>
+    </div>
+    <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+
+  <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full v2 grid-limit layout-item gutter-big" >
+    <!-- TAB WRAP -->
+    <div class="tab-wrap" >
+      <!-- TAB BODY -->
+      <div class="tab-body">
+        <!-- TAB ITEM -->
+        <div class="tab-item">
+          <!-- WIDGET MATCH BOX -->
+        <div  id="cambiaEquipos"> 
+        </div>
+        <!-- /TAB ITEM -->
+      </div>
+      <!-- /TAB BODY -->
+    <!-- /TAB WRAP -->
+  </div>
+  <!-- /LAYOUT CONTENT FULL -->
+
+  <!-- LAYOUT CONTENT 1 -->
+  <div class="layout-content-1 layout-item-3-1 grid-limit" >
+    <!-- LAYOUT BODY -->
+    <div class="layout-body layout-item gutter-big">
+      <!-- WIDGET ITEM -->
+      <div class="widget-item">
+        <!-- SECTION TITLE WRAP -->
+        <div class="section-title-wrap violet">
+          <h2 class="section-title medium">Watch Replay</h2>
+          <div class="section-title-separator"></div>
+        </div>
+        <!-- /SECTION TITLE WRAP -->
+
+        <!-- WIDGET MEDIA WRAP -->
+        <div class="widget-media-wrap large" >
+          <!-- WIDGET MEDIA R -->
+          <div class="widget-media-r">
+            <iframe id ="stream"  frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+          </div>
+          <!-- /WIDGET MEDIA R -->
+        </div>
+        <!-- /WIDGET MEDIA WRAP -->
+      </div>
+      <!-- /WIDGET ITEM -->
+
+      <!-- WIDGET ITEM -->
+      <div class="widget-item">
+        <!-- SECTION TITLE WRAP -->
+        <div class="section-title-wrap violet">
+          <h2 class="section-title medium">Team Lineups</h2>
+          <div class="section-title-separator"></div>
+        </div>
+        <!-- /SECTION TITLE WRAP -->
+        
+        <!-- WIDGET TEAM BUILDS HEADER -->
+        <div class="widget-team-builds-header" id ="agregaEquipos">
+            
+         </div>
+        <!-- /WIDGET TEAM BUILDS HEADER -->
+        
+        <!-- TABLE -->
+        <div class="table lineups full">
+          <!-- TABLE ROW HEADER -->
+          <div class="table-row-header big bordered colored">
+            <!-- TABLE ROW HEADER ITEM -->
+            <div class="table-row-header-item left">
+              <p class="table-row-header-title">Agent / Player</p>
+            </div>
+            <!-- /TABLE ROW HEADER ITEM -->
+
+            <!-- TABLE ROW HEADER ITEM -->
+            <div class="table-row-header-item right">
+              <p class="table-row-header-title">Agent / Player</p>
+            </div>
+            <!-- /TABLE ROW HEADER ITEM -->
+          </div>
+          <!-- /TABLE ROW HEADER -->
+          <!-- TABLE ROWS  fila -->
+          <div class="table-rows no-color" id="agregaIntegrantes">
+
+          </div>
+              <!-- /TABLE ROW ITEM FIN -->       
+        </div>
+        <!-- /TABLE -->
+      </div>
+      <!-- /WIDGET ITEM -->
+    </div>
+    <!-- /LAYOUT BODY -->
+  </div>
+  <!-- LAYOUT CONTENT 1 -->
+  <script>
+      window.onload = async function() {
+        const res = await fetch(`http://localhost:4000/matchData`)
+        const data = await res.json();
+        const agregaEquipos= document.getElementById("cambiaEquipos")
+        const agregaStream= document.getElementById("stream")
+        const headerEquipos= document.getElementById("agregaEquipos")
+        const widgetMatchBox = document.createElement('div')
+        const teaminfoBlueWrap = document.createElement('div')
+        const teamLogowrapB = document.createElement('div')
+        const teamInfoB = document.createElement('div')
+        const matchStats = document.createElement('div')
+        const teaminfoWrap = document.createElement('div')
+        const teamLogoWrapY = document.createElement('div')
+        const teamInfo = document.createElement('div')
+        const teamLogo1=document.createElement('img')
+        const teamLogo2=document.createElement('img')
+        const teamname1=document.createElement('p')
+        const teamname2=document.createElement('p')
+        const  widgetBox=document.createElement('div')
+        widgetBox.setAttribute("class","widget-match-box")
+        widgetMatchBox.setAttribute("class","widget-match-box-row big")
+        teaminfoBlueWrap.setAttribute("class","team-info-wrap v3 blue")
+        teamLogowrapB.setAttribute("class","team-logo-wrap")
+        teamInfoB.setAttribute("class","team-info")
+        matchStats.setAttribute("class","match-stats")
+        teaminfoWrap.setAttribute("class","team-info-wrap v3 yellow inverted")
+        teamLogoWrapY.setAttribute("class","team-logo-wrap")
+        teamInfo.setAttribute("class","team-info")
+        teamLogo1.setAttribute("class","team-logo")
+        teamLogo2.setAttribute("class","team-logo")
+        teamname1.setAttribute("class","team-name")
+        teamname2.setAttribute("class","team-name")
+       //inicio de logo de equipo Azul
+        var texto = document.createTextNode(`${data[0].Equipo1}`);
+        teamname1.appendChild(texto);
+        teamLogo1.setAttribute('src', `img/teams/logos/${data[0].Equipo1}.png`);
+        teamLogowrapB.appendChild(teamLogo1);
+        teaminfoBlueWrap.appendChild(teamLogowrapB)
+        teamLogowrapB.appendChild(teamLogo1)
+        teamInfoB.appendChild(teamname1)
+        teaminfoBlueWrap.appendChild(teamInfoB)
+        widgetMatchBox.appendChild(teaminfoBlueWrap)
+        //inicio de resultados
+        const result= document.createElement('p');
+        result.setAttribute("class","match-score big")
+        const tituloResultado= document.createElement('p')
+        tituloResultado.setAttribute("class","match-time medium")
+        var textoResultado = document.createTextNode(`${data[0].puntosEquipo1}-${data[0].puntosEquipo2}`);
+        var textoTituloR = document.createTextNode("Resultado");
+        result.appendChild(textoResultado);
+        tituloResultado.appendChild(textoTituloR);
+        matchStats.appendChild(result);
+        matchStats.appendChild(tituloResultado);
+        widgetMatchBox.appendChild(matchStats)
+        //segundo equipo 
+        teamLogo2.setAttribute('src', `img/teams/logos/${data[0].Equipo2}.png`);
+        teamLogoWrapY.appendChild(teamLogo2)
+        var textoE2 = document.createTextNode(`${data[0].Equipo2}`);
+        teamname2.appendChild(textoE2);
+        teamInfo.appendChild(teamname2)
+        teaminfoWrap.appendChild(teamLogoWrapY)
+        teaminfoWrap.appendChild(teamInfo)
+        widgetMatchBox.appendChild(teaminfoWrap)
+        widgetBox.appendChild(widgetMatchBox)
+        agregaEquipos.appendChild(widgetBox)
+
+        //agregar stream
+        agregaStream.setAttribute('src',`https://player.twitch.tv/?channel=${data[0].Stream}&parent=localhost`)
+
+
+        //agregar header tabla equipos
+        const headerTeam1 = document.createElement('div')
+        headerTeam1.setAttribute('class',"team-info-wrap medium")
+        const teamInfoName1 = document.createElement('div')
+        teamInfoName1.setAttribute("class","team-info")
+        const  headerTeam2 = document.createElement('div')
+        headerTeam2.setAttribute('class',"team-info-wrap medium inverted")
+        const teamInfoName2 = document.createElement('div')
+        teamInfoName2.setAttribute("class","team-info")
+        const headerLogo1=document.createElement('img')
+        headerLogo1.setAttribute('class', "team-logo" );
+        headerLogo1.setAttribute('src', `img/teams/logos/${data[0].Equipo1}.png`);
+        const headername1=document.createElement('p')
+        headername1.setAttribute("class","team-name")
+        const headerLogo2=document.createElement('img')
+        headerLogo2.setAttribute('class', "team-logo" );
+        headerLogo2.setAttribute('src', `img/teams/logos/${data[0].Equipo2}.png`);
+        const headername2=document.createElement('p')
+        headername2.setAttribute("class","team-name")
+        var textoname1 = document.createTextNode(`${data[0].Equipo1}`);
+        var textoname2 = document.createTextNode(`${data[0].Equipo2}`);
+        headername1.appendChild(textoname1)
+        teamInfoName1.appendChild(headername1)
+        headername2.appendChild(textoname2)
+        teamInfoName2.appendChild(headername2)
+        headerTeam1.appendChild(headerLogo1)
+        headerTeam1.appendChild(teamInfoName1)
+        headerTeam2.appendChild(teamInfoName2)
+        headerTeam2.appendChild(headerLogo2)
+        headerEquipos.appendChild(headerTeam1)
+        headerEquipos.appendChild(headerTeam2)
+
+        //Creacion de tabla de equipos
+        const resMembers = await fetch(`http://localhost:4000/teamData`)
+        const datosEquipos = await resMembers.json();
+        var i
+        for( i=0; i<5;i++)
+        {
+        const agregarIntegrantes = document.getElementById("agregaIntegrantes")
+        const tableRow = document.createElement('div')
+        tableRow.setAttribute("class","table-row big")
+        const tableIteamT1= document.createElement('div')
+        tableIteamT1.setAttribute("class","table-row-item")
+        const wrapTeam1=document.createElement('div')
+        wrapTeam1.setAttribute("class","team-info-wrap medium")
+        const team1Info=document.createElement('div')
+        team1Info.setAttribute("class","team-info")
+        const tableIteamT2= document.createElement('div')
+        tableIteamT2.setAttribute("class","table-row-item")
+        const wrapTeam2=document.createElement('div')
+        wrapTeam2.setAttribute("class","team-info-wrap inverted medium")
+        const team2Info=document.createElement('div')
+        team2Info.setAttribute("class","team-info")
+        const agentTeam1= document.createElement('img')
+        agentTeam1.setAttribute("class","user-avatar character blue")
+        const agentTeam2= document.createElement('img')
+        agentTeam2.setAttribute("class","user-avatar character yellow")
+        const memberTeam1= document.createElement('p')
+        memberTeam1.setAttribute("class","team-name")
+        const memberTeam2= document.createElement('p')
+        memberTeam2.setAttribute("class","team-name")
+        const agent1= document.createElement('p')
+        agent1.setAttribute("class","team-country")
+        const agent2= document.createElement('p')
+        agent2.setAttribute("class","team-country")
+        if(datosEquipos[i].Equipo===data[0].Equipo1)
+        {
+        var textoname1 = document.createTextNode(`${datosEquipos[i].integrante}`);
+        var textoname2 = document.createTextNode(`${datosEquipos[i+5].integrante}`);
+        var textoagente1 = document.createTextNode(`${datosEquipos[i].mainAgent}`);
+        var textoagente2 = document.createTextNode(`${datosEquipos[i+5].mainAgent}`);
+        memberTeam1.appendChild(textoname1)
+        memberTeam2.appendChild(textoname2)
+        agent1.appendChild(textoagente1)
+        agent2.appendChild(textoagente2)
+        team1Info.appendChild(memberTeam1)
+        team1Info.appendChild(agent1)
+        agentTeam1.setAttribute("src",`img/teams/agents/${datosEquipos[i].mainAgent}.jpg`)
+        wrapTeam1.appendChild(agentTeam1)
+        wrapTeam1.appendChild(team1Info)
+        tableIteamT1.appendChild(wrapTeam1)
+        
+
+        team2Info.appendChild(memberTeam2)
+        team2Info.appendChild(agent2)
+        agentTeam2.setAttribute("src",`img/teams/agents/${datosEquipos[i+5].mainAgent}.jpg`)
+        wrapTeam2.appendChild(agentTeam2)
+        wrapTeam2.appendChild(team2Info)
+        tableIteamT1.appendChild(wrapTeam1)
+        tableIteamT2.appendChild(wrapTeam2)
+        }
+        else
+        {
+        var textoname1 = document.createTextNode(`${datosEquipos[i+5].integrante}`);
+        var textoname2 = document.createTextNode(`${datosEquipos[i].integrante}`);
+        var textoagente1 = document.createTextNode(`${datosEquipos[i+5].mainAgent}`);
+        var textoagente2 = document.createTextNode(`${datosEquipos[i].mainAgent}`);
+        memberTeam1.appendChild(textoname1)
+        memberTeam2.appendChild(textoname2)
+        agent1.appendChild(textoagente1)
+        agent2.appendChild(textoagente2)
+        team1Info.appendChild(memberTeam1)
+        team1Info.appendChild(agent1)
+        agentTeam1.setAttribute("src",`img/teams/agents/${datosEquipos[i+5].mainAgent}.jpg`)
+        wrapTeam1.appendChild(agentTeam1)
+        wrapTeam1.appendChild(team1Info)
+        tableIteamT1.appendChild(wrapTeam1)
+        
+
+        team2Info.appendChild(memberTeam2)
+        team2Info.appendChild(agent2)
+        agentTeam2.setAttribute("src",`img/teams/agents/${datosEquipos[i].mainAgent}.jpg`)
+        wrapTeam2.appendChild(agentTeam2)
+        wrapTeam2.appendChild(team2Info)
+        tableIteamT1.appendChild(wrapTeam1)
+        tableIteamT2.appendChild(wrapTeam2)
+        }
+        tableRow.appendChild(tableIteamT1)
+        tableRow.appendChild(tableIteamT2)
+        agregarIntegrantes.appendChild(tableRow)
+        }
+     
+      };
+      
+  </script>
+</body>
+</html>

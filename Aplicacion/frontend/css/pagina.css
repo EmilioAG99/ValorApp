@@ -1,0 +1,44 @@
+.logout{
+    border: none;
+    color: white;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 12px 10px;
+    cursor: pointer;
+    background-color: red;
+    border-radius: 8px; 
+}
+.header{
+    background-color:black
+}
+.headerItem{
+    display: flex;
+    flex-direction: row;
+    align-items:flex-end;
+    color: white;
+}
+.barElement{
+    cursor: pointer;
+    padding-right: 40px;
+    background-color: red;
+    padding: 4px;
+    border-radius: 8px; 
+    margin: 12px 10px;
+    text-align: center;
+}
+.botones{
+    border: none;
+    color: white;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 15px 20px 10px 80px;
+    cursor: pointer;
+    background-color: red;
+    border-radius: 8px; 
+}

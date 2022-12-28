@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- style -->
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="css/pagina.css">
+  <!-- favicon -->
+  <link rel="icon" href="img/LogoPF.jpg">
+  <title>Pagina de administrator</title>
+</head>
+<body>
+    <!-- HEADER WRAP -->
+    <div class="header">
+        <!-- HEADER -->
+        <form method="GET" action="/Home" >
+          <input type="submit"  name="Inicio" id="Inicio"  value="Inicio" class="logout"/>
+        </form>
+        <form method="GET" action="/teams" >
+          <input type="submit"  name="Equipos" id="Equipos"  value="Equipos" class="logout"/>
+        </form>
+        <form method="POST" action="/logOut" >
+          <input type="submit"  name="logout" id="logout"  value="Log out" class="logout"/>
+        </form>
+             
+          <!-- /WIDGET SELECTABLES -->
+        </div>
+      <!-- /HEADER WRAP -->
+  <!-- BANNER WRAP -->
+  <div class="banner-wrap forum-banner">
+    <!-- BANNER -->
+    <div class="banner grid-limit">
+      <h2 class="banner-title">Administrador</h2>
+    </div>
+    <!-- /BANNER -->
+  </div>
+  <!-- /BANNER WRAP -->
+
+  <!-- LAYOUT CONTENT FULL -->
+  <div class="layout-content-full grid-limit">
+    <!-- TAB WRAP -->
+    <div class="tab-wrap">
+
+      <!-- TAB BODY -->
+      <div class="tab-body">
+        <!-- TAB ITEM -->
+        <div class="tab-item spaced">
+          <!-- LAYOUT CONTENT 4 -->
+          <div class="layout-content-4 v2 layout-item-1-3">
+            <!-- LAYOUT SIDEBAR -->
+            <div class="layout-sidebar">
+              <!-- DROPDOWN LIST -->
+              <ul class="dropdown-list void centered">
+                <!-- DROPDOWN LIST ITEM -->
+                <li  id="MatchText" class="dropdown-list-item active"onclick="displayAddMatch();">
+                  <a  class="dropdown-list-item-link">Agregar Partido</a>
+                </li>
+                <!-- /DROPDOWN LIST ITEM -->
+        
+                <!-- DROPDOWN LIST ITEM -->
+                <li id="TeamText" class="dropdown-list-item"onclick="displayAddTeam()">
+                  <a   class="dropdown-list-item-link">Agregar Equipo</a>
+                </li>
+                <!-- /DROPDOWN LIST ITEM -->
+        
+                <!-- DROPDOWN LIST ITEM -->
+                <li id="ActualizarText" class="dropdown-list-item" onclick="displayUpdateMatch()">
+                  <a   class="dropdown-list-item-link">Actualizar Partido</a>
+                </li>
+                <!-- /DROPDOWN LIST ITEM -->
+                 <!-- DROPDOWN LIST ITEM -->
+                 <li id="EliminarText" class="dropdown-list-item"onclick="displayDeleteMatch()">
+                  <a  class="dropdown-list-item-link">Eliminar Partido</a>
+                </li>
+                <li id="MiembrosText"class="dropdown-list-item"onclick="displayAddTeammembers()">
+                  <a  class="dropdown-list-item-link">Agregar Miembros de Equipo</a>
+                </li>
+                <!-- /DROPDOWN LIST ITEM -->
+              </ul>
+              <!-- /DROPDOWN LIST -->
+            </div>
+            <!-- /LAYOUT SIDEBAR -->
+                  <!-- LAYOUT BODY  agrega equipo-->
+                  <div class="layout-body" id = "agregarPartido">
+                    <!-- ACCOUNT SETTINGS FORM -->
+                    <form class="account-settings-form"  method="POST" action="/addMatch">
+                      <!-- FORM ROW -->
+                      <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_first_name" class="rl-label">Equipo 1</label>
+                          <input type="text" id="Equipo1" name="Equipo1" placeholder="Nombre equipo 2" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                        
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_last_name" class="rl-label">Equipo 2</label>
+                          <input type="text" id="Equipo2" name="Equipo2" placeholder="Nombre equipo 2" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <div class="form-row">
+                      <!-- /FORM ROW -->
+                      <div class="form-item half blue">
+                        <label for="as_first_name" class="rl-label">Puntos Equipo 1</label>
+                        <input type="text" id="puntosE1" name="puntosE1" placeholder="Agregue puntos del equipo 1" required>
+                      </div>
+                      <!-- /FORM ITEM -->
+
+                      <!-- FORM ITEM -->
+                      <div class="form-item half blue">
+                        <label for="as_last_name" class="rl-label">Puntos Equipo 2</label>
+                        <input type="text" id="puntosE2" name="puntosE2" placeholder="Agregue puntos del equipo 2" required>
+                      </div>
+                      <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+
+                      <!-- FORM ROW -->
+                      <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item blue">
+                          <label for="as_equipo" class="rl-label">Stream donde sera transmitido</label>
+                          <input type="text" id="stream" name="stream" placeholder="Agregar nombre de canal"required >
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+
+                      <!-- FORM ROW -->
+                      <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item blue">
+                          <label for="as_email" class="rl-label">Fecha</label>
+                          <input type="text" id="Fecha" name="Fecha" placeholder="Insertar fecha yyyy-mm-dd hh:mm" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+
+                      <!-- SUBMIT BUTTON WRAP -->
+                      <div class="submit-button-wrap">
+                        <!-- BUTTON -->
+                        <button class="button blue">
+                          Submit
+                          <!-- BUTTON ORNAMENT -->
+                          <span class="button-ornament">
+                            <!-- ARROW ICON -->
+                            <svg class="arrow-icon medium">
+                              <use xlink:href="#svg-arrow-medium"></use>
+                            </svg>
+                            <!-- /ARROW ICON -->
+
+                            <!-- CROSS ICON -->
+                            <svg class="cross-icon small">
+                              <use xlink:href="#svg-cross-small"></use>
+                            </svg>
+                            <!-- /CROSS ICON -->
+                          </span>
+                          <!-- /BUTTON ORNAMENT -->
+                        </button>
+                        <!-- /BUTTON -->
+                      </div>
+                      <!-- /SUBMIT BUTTON WRAP -->
+                    </form>
+                    <!-- /ACCOUNT SETTINGS FORM -->
+                  </div>
+                  <!-- /LAYOUT BODY  agrega equipo-->
+
+                 <!-- LAYOUT BODY  actualiza partido-->
+                  <div class="layout-body" id ="ActualizarPartido" style="display:none">
+                    <!-- ACCOUNT SETTINGS FORM -->
+                    <form class="account-settings-form" method="POST" action="/updateMatch">
+                      <!-- FORM ROW -->
+                      <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_first_name" class="rl-label">Equipo 1</label>
+                          <input type="text" id="Equipo1" name="Equipo1" placeholder="Equipo 1"required>
+                        </div>
+                        <!-- /FORM ITEM -->
+
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_last_name" class="rl-label">Equipo 2</label>
+                          <input type="text" id="Equipo2" name="Equipo2" placeholder="Equipo 2"required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+
+                      <!-- FORM ROW -->
+                      <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item blue">
+                          <label for="as_email" class="rl-label">Fecha</label>
+                          <input type="text" id="Fecha" name="Fecha" placeholder="Insertar fecha yyyy-mm-dd"required >
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+
+                        <!-- FORM ROW -->
+                        <div class="form-row">
+                          <!-- FORM ITEM -->
+                          <div class="form-item half blue">
+                            <label for="as_first_name" class="rl-label">Marcador equipo 1</label>
+                            <input type="text" id="Marcador1" name="Marcador1" placeholder="Marcador Equipo 1"required>
+                          </div>
+                          <!-- /FORM ITEM -->
+  
+                          <!-- FORM ITEM -->
+                          <div class="form-item half blue">
+                            <label for="as_last_name" class="rl-label">Marcador equipo 2</label>
+                            <input type="text" id="Marcador2" name="Marcador2" placeholder="Marcador Equipo 2"required>
+                          </div>
+                          <!-- /FORM ITEM -->
+                        </div>
+
+                      <!-- SUBMIT BUTTON WRAP -->
+                      <div class="submit-button-wrap">
+                        <!-- BUTTON -->
+                        <button class="button blue">
+                          Submit
+                          <!-- BUTTON ORNAMENT -->
+                          <span class="button-ornament">
+                            <!-- ARROW ICON -->
+                            <svg class="arrow-icon medium">
+                              <use xlink:href="#svg-arrow-medium"></use>
+                            </svg>
+                            <!-- /ARROW ICON -->
+
+                            <!-- CROSS ICON -->
+                            <svg class="cross-icon small">
+                              <use xlink:href="#svg-cross-small"></use>
+                            </svg>
+                            <!-- /CROSS ICON -->
+                          </span>
+                          <!-- /BUTTON ORNAMENT -->
+                        </button>
+                        <!-- /BUTTON -->
+                      </div>
+                      <!-- /SUBMIT BUTTON WRAP -->
+                    </form>
+                    <!-- /ACCOUNT SETTINGS FORM -->
+                  </div>
+                  <!-- /LAYOUT BODY actualiza Partido-->  
+
+
+                   <!-- LAYOUT BODY agrega equipo -->
+                   <div class="layout-body" id ="agregarEquipo" style="display:none"  >
+                    <!-- ACCOUNT SETTINGS FORM -->
+                    <form class="account-settings-form" method="POST" action="/addTeam">
+                      <!-- FORM ROW -->
+                      <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_first_name" class="rl-label">Siglas Equipo</label>
+                          <input type="text" id="siglasEquipo" name="siglasEquipo" placeholder="Ingrese las siglas del equipo" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_last_name" class="rl-label">Nombre del equipo</label>
+                          <input type="text" id="NombreEquipo" name="NombreEquipo" placeholder="Ingrese nombre de equipo" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+
+                      <!-- SUBMIT BUTTON WRAP -->
+                      <div class="submit-button-wrap">
+                        <!-- BUTTON -->
+                        <button class="button blue" onclick="">
+                          Submit
+                          <!-- BUTTON ORNAMENT -->
+                          <span class="button-ornament">
+                            <!-- ARROW ICON -->
+                            <svg class="arrow-icon medium">
+                              <use xlink:href="#svg-arrow-medium"></use>
+                            </svg>
+                            <!-- /ARROW ICON -->
+
+                            <!-- CROSS ICON -->
+                            <svg class="cross-icon small">
+                              <use xlink:href="#svg-cross-small"></use>
+                            </svg>
+                            <!-- /CROSS ICON -->
+                          </span>
+                          <!-- /BUTTON ORNAMENT -->
+                        </button>
+                        <!-- /BUTTON -->
+                      </div>
+                      <!-- /SUBMIT BUTTON WRAP -->
+                    </form>
+                    <!-- /ACCOUNT SETTINGS FORM -->
+                  </div>
+                  <!-- /LAYOUT BODY agrega equipo -->
+
+                    <!-- LAYOUT BODY  actualiza partido-->
+                    <div class="layout-body" id ="ElimninarPartido" style="display:none" >
+                      <!-- ACCOUNT SETTINGS FORM -->
+                      <form class="account-settings-form"  method="POST" action="/deleteMatch">
+                        <!-- FORM ROW -->
+                        <div class="form-row">
+                          <!-- FORM ITEM -->
+                          <div class="form-item half blue">
+                            <label for="as_first_name" class="rl-label">Equipo 1</label>
+                            <input type="text" id="Equipo1" name="Equipo1" placeholder="Equipo 1" required>
+                          </div>
+                          <!-- /FORM ITEM -->
+  
+                          <!-- FORM ITEM -->
+                          <div class="form-item half blue">
+                            <label for="as_last_name" class="rl-label">Equipo 2</label>
+                            <input type="text" id="Equipo2" name="Equipo2" placeholder="Equipo 2" required>
+                          </div>
+                          <!-- /FORM ITEM -->
+                        </div>
+                        <!-- /FORM ROW -->
+  
+                        <!-- FORM ROW -->
+                        <div class="form-row">
+                          <!-- FORM ITEM -->
+                          <div class="form-item blue">
+                            <label for="as_email" class="rl-label">Fecha</label>
+                            <input type="text" id="Fecha" name="Fecha" placeholder="Insertar fecha yyyy-mm-dd" required>
+                          </div>
+                          <!-- /FORM ITEM -->
+                        </div>
+                        <!-- /FORM ROW -->
+  
+                        <!-- SUBMIT BUTTON WRAP -->
+                        <div class="submit-button-wrap">
+                          <!-- BUTTON -->
+                          <button class="button blue" >
+                            Submit
+                            <!-- BUTTON ORNAMENT -->
+                            <span class="button-ornament">
+                              <!-- ARROW ICON -->
+                              <svg class="arrow-icon medium">
+                                <use xlink:href="#svg-arrow-medium"></use>
+                              </svg>
+                              <!-- /ARROW ICON -->
+  
+                              <!-- CROSS ICON -->
+                              <svg class="cross-icon small">
+                                <use xlink:href="#svg-cross-small"></use>
+                              </svg>
+                              <!-- /CROSS ICON -->
+                            </span>
+                            <!-- /BUTTON ORNAMENT -->
+                          </button>
+                          <!-- /BUTTON -->
+                        </div>
+                        <!-- /SUBMIT BUTTON WRAP -->
+                      </form>
+                      <!-- /ACCOUNT SETTINGS FORM -->
+                    </div>
+                    <!-- /LAYOUT BODY actualiza Partido-->  
+
+
+                     <!-- LAYOUT BODY agrega miembros -->
+                   <div class="layout-body" id ="agregarMiembros" style="display:none"  >
+                    <!-- ACCOUNT SETTINGS FORM -->
+                    <form class="account-settings-form" method="POST" action="/addTeamMembers">
+                      <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item blue">
+                          <label for="as_email" class="rl-label">Equipo</label>
+                          <input type="text" id="Equipo" name="Equipo" placeholder="Insertar nombre del equipo" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- FORM ROW -->
+                      <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_first_name" class="rl-label">Nombre de Integrante</label>
+                          <input type="text" id="Miembro1" name="Miembro1" placeholder="Ingrese nombre del jugador" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_last_name" class="rl-label">Nombre del agente</label>
+                          <input type="text" id="Agent1" name="Agent1" placeholder="Ingrese nombre de agente" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+                       <!-- FORM ROW -->
+                       <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_first_name" class="rl-label">Nombre de Integrante</label>
+                          <input type="text" id="Miembro2" name="Miembro2" placeholder="Ingrese nombre del jugador" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_last_name" class="rl-label">Nombre del agente</label>
+                          <input type="text" id="Agent2" name="Agent2" placeholder="Ingrese nombre de agente" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+                       <!-- FORM ROW -->
+                       <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_first_name" class="rl-label">Nombre de Integrante</label>
+                          <input type="text" id="Miembro3" name="Miembro3" placeholder="Ingrese nombre del jugador" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_last_name" class="rl-label">Nombre del agente</label>
+                          <input type="text" id="Agent3" name="Agent3" placeholder="Ingrese nombre de agente" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+                       <!-- FORM ROW -->
+                       <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_first_name" class="rl-label">Nombre de Integrante</label>
+                          <input type="text" id="Miembro4" name="Miembro4" placeholder="Ingrese nombre del jugador" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_last_name" class="rl-label">Nombre del agente</label>
+                          <input type="text" id="Agent4" name="Agent4" placeholder="Ingrese nombre de agente" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+                       <!-- FORM ROW -->
+                       <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_first_name" class="rl-label">Nombre de Integrante</label>
+                          <input type="text" id="Miembro5" name="Miembro5" placeholder="Ingrese nombre del jugador" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+
+                        <!-- FORM ITEM -->
+                        <div class="form-item half blue">
+                          <label for="as_last_name" class="rl-label">Nombre del agente</label>
+                          <input type="text" id="Agent5" name="Agent5" placeholder="Ingrese nombre de agente" required>
+                        </div>
+                        <!-- /FORM ITEM -->
+                      </div>
+                      <!-- /FORM ROW -->
+
+                      <!-- SUBMIT BUTTON WRAP -->
+                      <div class="submit-button-wrap">
+                        <!-- BUTTON -->
+                        <button class="button blue" onclick="">
+                          Submit
+                          <!-- BUTTON ORNAMENT -->
+                          <span class="button-ornament">
+                            <!-- ARROW ICON -->
+                            <svg class="arrow-icon medium">
+                              <use xlink:href="#svg-arrow-medium"></use>
+                            </svg>
+                            <!-- /ARROW ICON -->
+
+                            <!-- CROSS ICON -->
+                            <svg class="cross-icon small">
+                              <use xlink:href="#svg-cross-small"></use>
+                            </svg>
+                            <!-- /CROSS ICON -->
+                          </span>
+                          <!-- /BUTTON ORNAMENT -->
+                        </button>
+                        <!-- /BUTTON -->
+                      </div>
+                      <!-- /SUBMIT BUTTON WRAP -->
+                    </form>
+                    <!-- /ACCOUNT SETTINGS FORM -->
+                  </div>
+                  <!-- /LAYOUT BODY agrega equipo -->
+  
+          </div>
+          <!-- /LAYOUT CONTENT 4 -->
+        </div>
+        <!-- /TAB ITEM -->
+      </div>
+      <!-- /TAB BODY -->
+    </div>
+    <!-- /TAB WRAP -->
+  </div>
+  <!-- LAYOUT CONTENT FULL -->
+  <script type="text/javascript">
+    const agregaPartido= document.getElementById("agregarPartido")
+    const actualizaPartido= document.getElementById("ActualizarPartido")  
+    const elimninarPartido= document.getElementById("ElimninarPartido")  
+    const agregarEquipo= document.getElementById("agregarEquipo")     
+    const agregarMiembros= document.getElementById("agregarMiembros")  
+    const MatchText=document.getElementById("MatchText")
+    const TeamText=document.getElementById("TeamText")
+    const ActualizarText=document.getElementById("ActualizarText")
+    const EliminarText=document.getElementById("EliminarText")
+    const MiembrosText=document.getElementById("MiembrosText")
+  function displayAddTeam() {
+    "dropdown-list-item active"
+    actualizaPartido.style.display = "none"
+    elimninarPartido.style.display = "none"
+    agregarEquipo.style.display = "block"
+    agregaPartido.style.display ="none"
+    agregarMiembros.style.display = "none"
+    MatchText.setAttribute('class',"dropdown-list-item")
+    TeamText.setAttribute('class',"dropdown-list-item active")
+    ActualizarText.setAttribute('class',"dropdown-list-item")
+    EliminarText.setAttribute('class',"dropdown-list-item ")
+    MiembrosText.setAttribute('class',"dropdown-list-item")
+    
+  }
+  function displayAddMatch() {
+    actualizaPartido.style.display = "none"
+    elimninarPartido.style.display = "none"
+    agregarEquipo.style.display = "none"
+    agregaPartido.style.display ="block"
+    agregarMiembros.style.display = "none"
+    MatchText.setAttribute('class',"dropdown-list-item active")
+    TeamText.setAttribute('class',"dropdown-list-item")
+    ActualizarText.setAttribute('class',"dropdown-list-item")
+    EliminarText.setAttribute('class',"dropdown-list-item ")
+    MiembrosText.setAttribute('class',"dropdown-list-item")
+  }
+  function displayUpdateMatch() {
+    actualizaPartido.style.display = "block"
+    elimninarPartido.style.display = "none"
+    agregarEquipo.style.display = "none"
+    agregaPartido.style.display ="none"
+    agregarMiembros.style.display = "none"
+    MatchText.setAttribute('class',"dropdown-list-item")
+    TeamText.setAttribute('class',"dropdown-list-item")
+    ActualizarText.setAttribute('class',"dropdown-list-item active")
+    EliminarText.setAttribute('class',"dropdown-list-item ")
+    MiembrosText.setAttribute('class',"dropdown-list-item")
+  }
+  function displayDeleteMatch() {      
+    actualizaPartido.style.display = "none"
+    elimninarPartido.style.display = "block"
+    agregarEquipo.style.display = "none"
+    agregaPartido.style.display ="none"
+    agregarMiembros.style.display = "none"
+    MatchText.setAttribute('class',"dropdown-list-item")
+    TeamText.setAttribute('class',"dropdown-list-item")
+    ActualizarText.setAttribute('class',"dropdown-list-item")
+    EliminarText.setAttribute('class',"dropdown-list-item active")
+    MiembrosText.setAttribute('class',"dropdown-list-item")
+  }
+  function displayAddTeammembers(){      
+    actualizaPartido.style.display = "none"
+    elimninarPartido.style.display = "none"
+    agregarEquipo.style.display = "none"
+    agregaPartido.style.display ="none"
+    agregarMiembros.style.display = "block"
+    MatchText.setAttribute('class',"dropdown-list-item")
+    TeamText.setAttribute('class',"dropdown-list-item")
+    ActualizarText.setAttribute('class',"dropdown-list-item")
+    EliminarText.setAttribute('class',"dropdown-list-item ")
+    MiembrosText.setAttribute('class',"dropdown-list-item active")
+  }
+  </script>
+</body>
+</html>
